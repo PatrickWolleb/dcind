@@ -1,8 +1,11 @@
-FROM alpine:3.3
+FROM alpine:3.5
 MAINTAINER Yusuke KUOKA <kuoka@chatwork.com>
 
 ENV DOCKER_VERSION=1.11.1 \
     DOCKER_COMPOSE_VERSION=1.7.1
+
+RUN    apk --update --no-cache add 'nodejs>6' && \
+          npm install -g gulp
 
 # Install Docker, Docker Compose
 RUN apk --update --no-cache \
