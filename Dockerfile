@@ -1,11 +1,25 @@
 FROM alpine:3.5
 MAINTAINER Yusuke KUOKA <kuoka@chatwork.com>
 
-ENV DOCKER_VERSION=1.11.1 \
-    DOCKER_COMPOSE_VERSION=1.7.1
+#ENV DOCKER_VERSION=1.11.1 \
+#    DOCKER_COMPOSE_VERSION=1.7.1
+ENV DOCKER_VERSION=1.13.1 \
+    DOCKER_COMPOSE_VERSION=1.11.1
 
-RUN    apk --update --no-cache add 'nodejs>6' && \
-          npm install -g gulp
+RUN apk --update --no-cache add python python-dev py-pip build-base && \
+            apk add gcc && \
+            apk add g++ && \
+            apk add make && \
+            apk add git && \
+	    apk add rsync && \
+	    apk add jq && \
+	    apk --update --no-cache add 'nodejs>6' && \
+            npm install -g gulp && \
+            git clone https://github.com/aws/aws-cli.git && \
+	    cd aws-cli && \
+	    pwd && \
+	    python /aws-cli/setup.py install
+	    
 
 # Install Docker, Docker Compose
 RUN apk --update --no-cache \
